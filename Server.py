@@ -4,11 +4,14 @@ import argparse
 import sys
 import csv
 import numpy as np
+from cryptography.fernet import Fernet
 
 MarksArray = NULL
-
+IDDict = thisdict = {
+  "id": 0,
+  "postion": 0
+}
 results = []
-
 
 
 def readfile():
@@ -17,47 +20,70 @@ def readfile():
         for row in reader: # each row is a list
             results.append(row)
 
-    for result in results:
-        print(result)
+    for i in range(1,len(results)):
+        #print(results[i])
+        ids = {results[i][1] : i}
+        IDDict.update(ids)
+    #print(IDDict)
+
+
 
 
 def GML1A():
     avg = 0
     for i in range(1,len(results)):
         avg = avg + int(results[i][3])
-    return avg/len(results)
+    return str(avg/len(results))
 
 def GML2A():
     avg = 0
     for i in range(1,len(results)):
         avg = avg + int(results[i][4])
-    return avg/len(results)
+    return str(avg/len(results))
 
 def GML3A():
     avg = 0
     for i in range(1,len(results)):
         avg = avg + int(results[i][5])
-    return avg/len(results)
+    return str(avg/len(results))
 
 def GML4A():
     avg = 0
     for i in range(1,len(results)):
         avg = avg + int(results[i][6])
-    return avg/len(results)
+    return str(avg/len(results))
 
 def GMA():
     avg = 0
     for i in range(1,len(results)):
         avg = avg + int(results[i][7])
-    return avg/len(results)
+    return str(avg/len(results))
 def GEA():
     avg = 0
     for i in range(1,len(results)):
         avg = avg + (int(results[i][8]) +int(results[i][9]) +int(results[i][10]) +int(results[i][11]))/4
-    return avg/len(results)
+    return str(avg/len(results))
 
-def GG(i):
-    return results[i]
+def GG(id):
+    loc = IDDict[str(id)]
+    EncryptedResult = []
+    key = results[loc][2]
+    encryption_key_bytes = key.encode('utf-8')
+    fernet = Fernet(encryption_key_bytes)
+    print("Non Encrypted Row")
+    print()
+    print(results[loc])
+    print()
+    print()
+    print()
+
+    for i in range(1,len(results[loc])):
+        MarkBytes = results[loc][i].encode('utf-8')
+        EncryptedResult.append(fernet.encrypt(MarkBytes))
+    print("Encrypted Row")
+    print()
+
+    return EncryptedResult
 
 readfile()
 print(GML1A())
@@ -66,7 +92,7 @@ print(GML3A())
 print(GML4A())
 print(GMA())
 print(GEA())
-print(GG(3))
+print(GG(1803933))
 
 
 
