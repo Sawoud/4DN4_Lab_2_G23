@@ -6,7 +6,9 @@ import csv
 import numpy as np
 
 MarksArray = NULL
+
 results = []
+
 
 
 def readfile():
@@ -21,44 +23,53 @@ def readfile():
 
 def GML1A():
     avg = 0
-    for i in range(1,results.size):
-        avg = avg + results[3][i]
-    return avg/results.size
+    for i in range(1,len(results)):
+        avg = avg + int(results[i][3])
+    return avg/len(results)
 
 def GML2A():
     avg = 0
-    for i in range(1,results.size):
-        avg = avg + results[4][i]
-    return avg/results.size
+    for i in range(1,len(results)):
+        avg = avg + int(results[i][4])
+    return avg/len(results)
 
 def GML3A():
     avg = 0
-    for i in range(1,results.size):
-        avg = avg + results[5][i]
-    return avg/results.size
+    for i in range(1,len(results)):
+        avg = avg + int(results[i][5])
+    return avg/len(results)
 
 def GML4A():
     avg = 0
-    for i in range(1,results.size):
-        avg = avg + results[6][i]
-    return avg/results.size
+    for i in range(1,len(results)):
+        avg = avg + int(results[i][6])
+    return avg/len(results)
 
 def GMA():
     avg = 0
-    for i in range(1,results.size):
-        avg = avg + results[7][i]
-    return avg/results.size
+    for i in range(1,len(results)):
+        avg = avg + int(results[i][7])
+    return avg/len(results)
 def GEA():
     avg = 0
-    for i in range(1,results.size):
-        avg = avg + (results[8]+results[9]+results[10]+results[11])/4
-    return avg/results.size
+    for i in range(1,len(results)):
+        avg = avg + (int(results[i][8]) +int(results[i][9]) +int(results[i][10]) +int(results[i][11]))/4
+    return avg/len(results)
 
 def GG(i):
     return results[i]
 
 readfile()
 print(GML1A())
+print(GML2A())
+print(GML3A())
+print(GML4A())
+print(GMA())
+print(GEA())
+print(GG(3))
+
+
+
 #class Server:
 
 #    HOSTNAME = "0.0.0.0"      # All interfaces.
